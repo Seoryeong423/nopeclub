@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>NopeClub 회원증 발급</title>
+</head>
+<body>
+    <h1>NopeClub 회원증 발급</h1>
+
+    <form id="cardForm">
+        <label>이름: <input type="text" name="name" required></label>
+        <label>날짜: <input type="date" name="date" required></label>
+
+        <h3>도장 선택:</h3>
+        <select name="stamp">
+            <option value="stamp1">도장 1</option>
+            <option value="stamp2">도장 2</option>
+            <option value="stamp3">도장 3</option>
+        </select>
+
+        <button type="submit">회원증 생성</button>
+    </form>
+
+    <script>
+        document.getElementById("cardForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+
+            fetch("/generate_card", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                let url = window.URL.createObjectURL(blob);
+                let a = document.createElement("a");
+                a.href = url;
+                a.download = "nopeclub_card.png";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
