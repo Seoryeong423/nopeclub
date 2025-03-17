@@ -16,7 +16,7 @@
     <div>
       <label for="nameInput">이름:</label>
       <input id="nameInput" type="text" placeholder="이름">
-      <label for="dateDisplay">날짜:</label>
+      <label for="dateDisplay"><br>날짜:</label>
       <span id="dateDisplay"></span>
     </div>
     <p class="preview-info">이름, 날짜, 도장을 자유롭게 움직여<br>원하는 위치에 배치하세요☺️</p>
@@ -223,16 +223,17 @@
                     let stampRect = stampImage.getBoundingClientRect();
                     let previewRect = backgroundImg.getBoundingClientRect();
 
-                    let stampX = (stampRect.left - previewRect.left) * scaleFactorX;
-                    let stampY = (stampRect.top - previewRect.top) * scaleFactorY;
-                    let stampWidth = (stampRect.width * scaleFactorX) * scaleFactor;
-                    let stampHeight = (stampRect.height * scaleFactorY) * scaleFactor;
+                    let stampWidth = stampRect.width * scaleFactor;
+                    let stampHeight = stampRect.height * scaleFactor;
+                    let stampX = (stampRect.left - previewRect.left) * scaleFactorX + (stampWidth / 2);
+                    let stampY = (stampRect.top - previewRect.top) * scaleFactorY + (stampHeight / 2);
+
 
                     let stampTempImg = new Image();
                     stampTempImg.src = stampImage.src;
                     stampTempImg.onload = function () {
                         ctx.save();
-                        ctx.translate(stampX + stampWidth / 2, stampY + stampHeight / 2);
+                        ctx.translate(stampX, stampY);
                         ctx.rotate((rotationAngle * Math.PI) / 180);
                         ctx.drawImage(stampTempImg, -stampWidth / 2, -stampHeight / 2, stampWidth, stampHeight);
                         ctx.restore();
