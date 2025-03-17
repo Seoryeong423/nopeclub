@@ -13,6 +13,13 @@ body {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
+
+  .name-date-container {
+    display: flex;
+    flex-direction: column; /* ✅ 세로 정렬 */
+    gap: 10px; /* ✅ 줄 간격 추가 */
+  }
+
   .highlight {
     color: #F95700; /* 원하는 색상 (예: 주황색) */
     font-weight: bold; /* 볼드 효과 추가 (선택 사항) */
